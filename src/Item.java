@@ -3,7 +3,7 @@ public class Item {
 
     private String Identificador;
     private int quantidade;
-    private Date dataDeRegistro;
+    private Date dataDeRegistro = new Date();
 
     public String getIdentificador(){
         return Identificador;

@@ -1,47 +1,53 @@
-import java.util.Scanner;
-
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
         int opcao;
-        Scanner teclado = new Scanner(System.in);
+
+        Estoques estoques = new Estoques();
+        Funcoes funcoes = new Funcoes();
 
         do{
-
-            Funcoes funcoes = new Funcoes();
 
             opcao = funcoes.menu();
 
             if(opcao == 1){ // Criação de um novo estoque
 
-                int opcaoEstoque;
-
-                do {
-
-                    String novoEstoque;
-
-                    System.out.print("Digite o nome do novo estoque: ");
-                    novoEstoque = teclado.nextLine();
-                    System.out.printf("O estoque %s foi criado. \n\n", novoEstoque);
-
-                    opcaoEstoque = funcoes.menuEstoque();
-
-                }while(opcaoEstoque != 0);
+                estoques.addEstoque();
+                funcoes.menuEstoque();
 
             }
             else if(opcao == 2){ // Seleção/Edição/Exibição do(s) Estoque(s)
 
-                int opcaoEstoque;
+                funcoes.menuEstoque();
 
-                do {
+            }
+//            else if(opcao == 3){ // Deletar determinado estoque
+//
+//
+//
+//            }
+//            else if(opcao == 4){ // Listar os estoques criados
+//
+//
+//
+//            }
+//            else if(opcao == 5){ // Deletar todos os estoques criados
+//
+//
+//
+//            }
+            else if(opcao == 0){ // Sair do programa
 
-                    opcaoEstoque = funcoes.menuEstoque();
+                break;
 
-                }while(opcaoEstoque != 0);
+            }
+            else{
+
+                System.out.print("Digite uma opção válida. \n");
 
             }
 
-        }while(opcao != 0);
+        }while(true);
 
     }
 }
