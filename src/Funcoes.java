@@ -21,7 +21,7 @@ public class Funcoes {
 
     }
 
-    public void menuEstoque(){
+    public void menuEstoque(Estoques estoques, int estoque){
 
         Scanner teclado = new Scanner(System.in);
 
@@ -39,8 +39,28 @@ public class Funcoes {
             opcao = teclado.nextInt();
             teclado.nextLine();
 
+            if(opcao == 3){
 
-        }while(opcao != 0);
+                if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
+                    estoques.getListaDeEstoques().get(estoque).updateItem();
+                }
+                else{
+                    System.out.print("Não é possível atualizar o item, pois ainda não existe nenhum item nesse estoque.\n\n");
+                }
+
+            }
+            else if(opcao == 0){
+
+                break;
+
+            }
+            else{
+
+                System.out.print("Por favor digite uma opção válida.\n");
+
+            }
+
+        }while(true);
 
     }
 

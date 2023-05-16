@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Estoques {
 
-    private ArrayList<Estoque> listaDeEstoques = new ArrayList<Estoque>();
+    private ArrayList<Estoque> listaDeEstoques = new ArrayList<>();
 
     public ArrayList<Estoque> getListaDeEstoques() {
         return listaDeEstoques;
@@ -24,7 +24,7 @@ public class Estoques {
         novoEstoque.setNomeDoEstoque(nomeNovoEstoque);
         listaDeEstoques.add(novoEstoque);
 
-        System.out.printf("\nO estoque %s foi criado. \n\n", nomeNovoEstoque);
+        System.out.printf("O estoque %s foi criado. \n\n", nomeNovoEstoque);
 
     }
 }
