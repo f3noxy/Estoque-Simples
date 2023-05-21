@@ -42,12 +42,28 @@ public class Funcoes {
             if(opcao == 3){
 
                 if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
+
                     estoques.getListaDeEstoques().get(estoque).updateItem();
+
                 }
                 else{
-                    System.out.print("Não é possível atualizar o item, pois ainda não existe nenhum item nesse estoque.\n\n");
+
+                    System.out.print("Não é possível atualizar itens, pois ainda não existe nenhum item nesse estoque.\n\n");
+
                 }
 
+            }
+            else if(opcao == 4){
+                if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
+
+                    estoques.getListaDeEstoques().get(estoque).removeItem();
+
+                }
+                else{
+
+                    System.out.print("Não é possível remover itens, pois ainda não existe nenhum item nesse estoque.\n\n");
+
+                }
             }
             else if(opcao == 0){
 

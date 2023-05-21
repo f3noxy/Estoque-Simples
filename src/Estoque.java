@@ -79,4 +79,22 @@ public class Estoque {
 
     }
 
+    public void removeItem(){
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Digite o indíce do item que você deseja remover: ");
+        int itemRemover = teclado.nextInt();
+
+        while(itemRemover > this.listaDeItens.size() || itemRemover < 0){
+            System.out.print("Por favor digite um item válido a ser alterado: ");
+            itemRemover = teclado.nextInt();
+        }
+
+        System.out.printf("O item %s foi removido com sucesso.\n\n", this.listaDeItens.get(itemRemover - 1).getIdentificador());
+        this.listaDeItens.remove(itemRemover - 1);
+
+
+    }
+
 }
