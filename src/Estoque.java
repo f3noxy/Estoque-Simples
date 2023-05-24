@@ -97,4 +97,17 @@ public class Estoque {
 
     }
 
+    public void showEstoque(){
+
+        System.out.print("\n| - Nome do estoque: " + this.nomeDoEstoque + "\n");
+        System.out.print("| - Quantidade de itens: " + this.quantidadeDeItens + "\n");
+        System.out.print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+        for(int i = 0; i < this.quantidadeDeItens; i++){
+            System.out.printf("Nome do %d item: %s | ", i+1, listaDeItens.get(i).getIdentificador());
+            System.out.printf("Quantidade do %d item: %d | ", i+1, listaDeItens.get(i).getQuantidade());
+            System.out.printf("Data de registro do " + i+1 + " item: " + listaDeItens.get(i).getDataDeRegistro() + "\n\n");
+        }
+
+    }
+
 }

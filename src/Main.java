@@ -20,7 +20,30 @@ public class Main {
                 funcoes.menuEstoque(estoques, qtdEstoquesCriados);
 
             }
-            else if(opcao == 2){ // Seleção/Edição/Exibição do(s) Estoque(s)
+            else if(opcao == 2){
+
+                if(!(estoques.getListaDeEstoques().isEmpty())){
+                    System.out.print("Digite qual estoque você deseja exibir: ");
+                    int exibirEstoque = teclado.nextInt() - 1;
+
+                    while (exibirEstoque < 0 || exibirEstoque > estoques.getListaDeEstoques().size()) {
+                        System.out.print("Por favor digite um estoque válido para ser exibido: ");
+                        exibirEstoque = teclado.nextInt() - 1;
+                    }
+
+                    estoques.getListaDeEstoques().get(exibirEstoque).showEstoque();
+                    funcoes.menuEstoque(estoques, exibirEstoque);
+
+
+                }
+                else{
+
+                    System.out.print("Não é possível exibir nenhum estoque, pois ainda não existe nenhum.\n\n");
+
+                }
+
+            }
+            else if(opcao == 3){ // Seleção/Edição/Exibição do(s) Estoque(s)
 
                 if(!(estoques.getListaDeEstoques().isEmpty())){
                     System.out.print("Digite qual estoque você deseja alterar: ");
@@ -41,17 +64,17 @@ public class Main {
                 }
 
             }
-//            else if(opcao == 3){ // Deletar determinado estoque
+//            else if(opcao == 4){ // Deletar determinado estoque
 //
 //
 //
 //            }
-//            else if(opcao == 4){ // Listar os estoques criados
+//            else if(opcao == 5){ // Listar os estoques criados
 //
 //
 //
 //            }
-//            else if(opcao == 5){ // Deletar todos os estoques criados
+//            else if(opcao == 6){ // Deletar todos os estoques criados
 //
 //
 //

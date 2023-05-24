@@ -9,10 +9,11 @@ public class Funcoes {
         int opcao;
 
         System.out.println("1. Criar estoque");
-        System.out.println("2. Editar estoque");
-        System.out.println("3. Deletar estoque");
-        System.out.println("4. Listar estoques");
-        System.out.println("5. Deletar todos os estoques");
+        System.out.println("2. Exibir estoque");
+        System.out.println("3. Editar estoque");
+        System.out.println("4. Deletar estoque");
+        System.out.println("5. Listar estoques");
+        System.out.println("6. Deletar todos os estoques");
         System.out.println("0. Sair");
         System.out.print("Digite o número correspodente a opção desejada: ");
         opcao = teclado.nextInt();
