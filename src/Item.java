@@ -1,12 +1,12 @@
 import java.util.Date;
 public class Item {
 
-    private String Identificador;
+    private String identificador;
     private int quantidade;
-    private Date dataDeRegistro;
+    private Date dataDeRegistro = new Date();
 
     public String getIdentificador(){
-        return Identificador;
+        return identificador;
     }
 
     public int getQuantidade(){
@@ -18,7 +18,7 @@ public class Item {
     }
 
     public void setIdentificador(String id){
-        Identificador = id;
+        identificador = id;
     }
 
     public void setQuantidade(int qtd){
