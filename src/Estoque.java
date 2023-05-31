@@ -99,13 +99,35 @@ public class Estoque {
 
     public void showEstoque(){
 
-        System.out.print("\n| - Nome do estoque: " + this.nomeDoEstoque + "\n");
-        System.out.print("| - Quantidade de itens: " + this.quantidadeDeItens + "\n");
+        System.out.print("\n| - Nome do estoque: " + getNomeDoEstoque() + "\n");
+        System.out.print("| - Quantidade de itens: " + getQuantidadeDeItens() + "\n");
         System.out.print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
         for(int i = 0; i < this.quantidadeDeItens; i++){
             System.out.printf("Nome do %d item: %s | ", i+1, listaDeItens.get(i).getIdentificador());
             System.out.printf("Quantidade do %d item: %d | ", i+1, listaDeItens.get(i).getQuantidade());
             System.out.printf("Data de registro do " + i+1 + " item: " + listaDeItens.get(i).getDataDeRegistro() + "\n\n");
+        }
+
+    }
+
+    public void eraseEstoque(){
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("\nVocê tem certeza que deseja DELETAR todos os itens existentes?\nDigite SIM para confirmar a ação: ");
+        String avaliarConfirmacao = teclado.nextLine();
+
+        if(avaliarConfirmacao.equalsIgnoreCase("sim")){
+
+            ArrayList<Item> novaListaItens = new ArrayList<>();
+            setListaDeItens(novaListaItens);
+            System.out.printf("Os itens no estoque %s foram apagados.\n\n", getNomeDoEstoque());
+
+        }
+        else{
+
+            System.out.print("\nVocê não digitou o código correto para a confirmação, então os itens não foram deletados.\n\n");
+
         }
 
     }

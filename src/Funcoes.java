@@ -35,6 +35,7 @@ public class Funcoes {
             System.out.println("3. Atualizar item");
             System.out.println("4. Apagar item");
             System.out.println("5. Mudar item de estoque");
+            System.out.println("6. Apagar todos os itens do estoque");
             System.out.println("0. Sair do estoque");
             System.out.print("Digite o número correspodente a opção desejada: ");
             opcao = teclado.nextInt();
@@ -63,6 +64,17 @@ public class Funcoes {
                 else{
 
                     System.out.print("Não é possível remover itens, pois ainda não existe nenhum item nesse estoque.\n\n");
+
+                }
+            }else if(opcao == 6){
+                if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
+
+                    estoques.getListaDeEstoques().get(estoque).eraseEstoque();
+
+                }
+                else{
+
+                    System.out.print("Não é possível apagar todos os do itens, pois ainda não existe nenhum item nesse estoque.\n\n");
 
                 }
             }

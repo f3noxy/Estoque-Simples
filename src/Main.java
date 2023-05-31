@@ -26,14 +26,13 @@ public class Main {
                     System.out.print("Digite qual estoque você deseja exibir: ");
                     int exibirEstoque = teclado.nextInt() - 1;
 
-                    while (exibirEstoque < 0 || exibirEstoque > estoques.getListaDeEstoques().size()) {
+                    while (exibirEstoque < 0 || exibirEstoque > estoques.getListaDeEstoques().size() - 1) {
                         System.out.print("Por favor digite um estoque válido para ser exibido: ");
                         exibirEstoque = teclado.nextInt() - 1;
                     }
 
                     estoques.getListaDeEstoques().get(exibirEstoque).showEstoque();
                     funcoes.menuEstoque(estoques, exibirEstoque);
-
 
                 }
                 else{
@@ -48,10 +47,12 @@ public class Main {
                 if(!(estoques.getListaDeEstoques().isEmpty())){
                     System.out.print("Digite qual estoque você deseja alterar: ");
                     int alterarEstoque = teclado.nextInt() - 1;
+                    System.out.print("\n");
 
-                    while (alterarEstoque < 0 || alterarEstoque > estoques.getListaDeEstoques().size()) {
+                    while (alterarEstoque < 0 || alterarEstoque > estoques.getListaDeEstoques().size() - 1) {
                         System.out.print("Por favor digite um estoque válido para ser alterado: ");
                         alterarEstoque = teclado.nextInt() - 1;
+                        System.out.print("\n");
                     }
 
                     funcoes.menuEstoque(estoques, alterarEstoque);
@@ -74,11 +75,20 @@ public class Main {
 //
 //
 //            }
-//            else if(opcao == 6){ // Deletar todos os estoques criados
-//
-//
-//
-//            }
+            else if(opcao == 6){ // Deletar todos os estoques criados
+
+                if(!(estoques.getListaDeEstoques().isEmpty())){
+
+                    estoques.eraseEstoques();
+
+                }
+                else{
+
+                    System.out.print("Não é possível apagar todos os estoques, pois ainda não existe nenhum.\n\n");
+
+                }
+
+            }
             else if(opcao == 0){ // Sair do programa
 
                 break;
@@ -89,6 +99,7 @@ public class Main {
                 System.out.print("Digite uma opção válida.\n");
 
             }
+            System.out.print("\n");
 
         }while(true);
 

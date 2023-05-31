@@ -27,4 +27,26 @@ public class Estoques {
         System.out.printf("O estoque %s foi criado. \n\n", nomeNovoEstoque);
 
     }
+
+    public void eraseEstoques(){
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("\nVocê tem certeza que deseja DELETAR todos os estoques existentes?\nDigite SIM para confirmar a ação: ");
+        String avaliarConfirmacao = teclado.nextLine();
+
+        if(avaliarConfirmacao.equalsIgnoreCase("sim")){
+
+            ArrayList<Estoque> novaListaEstoques = new ArrayList<>();
+            setListaDeEstoques(novaListaEstoques);
+            System.out.print("Todos os estoques foram deletados.\n\n");
+
+        }
+        else{
+
+            System.out.print("\nVocê não digitou o código correto para a confirmação, então os estoques não foram deletados.\n\n");
+
+        }
+
+    }
 }
