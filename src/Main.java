@@ -65,16 +65,33 @@ public class Main {
                 }
 
             }
-//            else if(opcao == 4){ // Deletar determinado estoque
-//
-//
-//
-//            }
-//            else if(opcao == 5){ // Listar os estoques criados
-//
-//
-//
-//            }
+            else if(opcao == 4){ // Deletar determinado estoque
+
+                if(!(estoques.getListaDeEstoques().isEmpty())){
+
+                    estoques.removeEstoque();
+
+                }
+                else{
+
+                    System.out.print("Não é possível deletar nenhum estoque, pois ainda não existe nenhum.\n\n");
+
+                }
+            }
+            else if(opcao == 5){ // Listar os estoques criados
+
+                if(!(estoques.getListaDeEstoques().isEmpty())){
+
+                    estoques.showEstoques();
+
+                }
+                else{
+
+                    System.out.print("Não é possível listar nenhum estoque, pois ainda não existe nenhum.\n\n");
+
+                }
+
+            }
             else if(opcao == 6){ // Deletar todos os estoques criados
 
                 if(!(estoques.getListaDeEstoques().isEmpty())){

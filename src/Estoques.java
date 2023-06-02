@@ -49,4 +49,57 @@ public class Estoques {
         }
 
     }
+
+    public void showEstoques(){
+
+        System.out.println("\nEstoques criados:\n");
+
+        for(int i = 0; i < listaDeEstoques.size(); i++){
+            System.out.printf("%d - %s \n", i+1, listaDeEstoques.get(i).getNomeDoEstoque());
+        }
+
+    }
+
+    public void removeEstoque(){
+
+        Scanner teclado = new Scanner(System.in);
+
+        System.out.print("Digite N para apagar o estoque pelo nome ou I para apagar pelo índicie: ");
+        String opcaoApagar = teclado.nextLine();
+        while(!(opcaoApagar.equalsIgnoreCase("N")) && !(opcaoApagar.equalsIgnoreCase("I"))){
+            System.out.print("Por favor digite uma opção válida: ");
+            opcaoApagar = teclado.nextLine();
+        }
+
+        if(opcaoApagar.equalsIgnoreCase("N")){
+
+            System.out.print("Digite o nome do estoque a ser apagado: ");
+            String estoqueParaApagar = teclado.nextLine();
+
+            for(int i = 0; i < listaDeEstoques.size(); i++){
+                if(listaDeEstoques.get(i).getNomeDoEstoque().equalsIgnoreCase(estoqueParaApagar)){
+                    System.out.printf("O estoque %s foi apagado.\n", listaDeEstoques.get(i).getNomeDoEstoque());
+                    listaDeEstoques.remove(i);
+                    break;
+                }
+                if(i == listaDeEstoques.size() - 1){
+                    System.out.printf("Nenhum estoque com o nome %s foi encontrado.\n\n", estoqueParaApagar);
+                }
+            }
+        }
+        else{
+
+            System.out.print("Digite o índice do estoque a ser apagado: ");
+            int estoqueParaApagar = teclado.nextInt() - 1;
+
+            if(estoqueParaApagar >= listaDeEstoques.size() || estoqueParaApagar < 0){
+                System.out.print("Não existe nenhum estoque com o índice informado.\n\n");
+            }
+            else{
+                System.out.printf("O estoque %s foi apagado.\n", listaDeEstoques.get(estoqueParaApagar).getNomeDoEstoque());
+                listaDeEstoques.remove(estoqueParaApagar);
+            }
+
+        }
+    }
 }
