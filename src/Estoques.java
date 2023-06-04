@@ -54,8 +54,8 @@ public class Estoques {
 
         System.out.println("\nEstoques criados:\n");
 
-        for(int i = 0; i < listaDeEstoques.size(); i++){
-            System.out.printf("%d - %s \n", i+1, listaDeEstoques.get(i).getNomeDoEstoque());
+        for(int i = 0; i < this.listaDeEstoques.size(); i++){
+            System.out.printf("%d - %s (%d)\n", i+1, this.listaDeEstoques.get(i).getNomeDoEstoque(), this.listaDeEstoques.get(i).getQuantidadeDeItens());
         }
 
     }
@@ -101,5 +101,55 @@ public class Estoques {
             }
 
         }
+    }
+
+    public void changeItemEstoque(){
+
+        Scanner teclado = new Scanner(System.in);
+
+        this.showEstoques();
+        System.out.print("Digite o índice do estoque que contém o item que será movido para outro estoque: ");
+        int indEstoquePerde = teclado.nextInt() - 1;
+
+        while(indEstoquePerde < 0 || indEstoquePerde > this.getListaDeEstoques().size() - 1){
+            System.out.print("O índice do estoque informado não existe, por favor informe um válido: ");
+            indEstoquePerde = teclado.nextInt() - 1;
+        }
+
+        while(this.getListaDeEstoques().get(indEstoquePerde).getListaDeItens().isEmpty()){
+            System.out.print("O estoque informado não contém itens, por tanto não é possível pegar nenhum item para mover, informe um estoque válido e com itens: ");
+            indEstoquePerde = teclado.nextInt() - 1;
+            while(indEstoquePerde < 0 || indEstoquePerde > this.getListaDeEstoques().size() - 1) {
+                System.out.print("O índice do estoque informado não existe, por favor informe um válido: ");
+                indEstoquePerde = teclado.nextInt() - 1;
+            }
+        }
+
+        this.showEstoques();
+        System.out.print("Digite o índice do estoque que receberá o item: ");
+        int indEstoqueRecebe = teclado.nextInt() - 1;
+
+        while(indEstoqueRecebe == indEstoquePerde || indEstoqueRecebe < 0 || indEstoqueRecebe > this.getListaDeEstoques().size() - 1){
+            System.out.print("O índice dos estoques informados são iguais ou o indíce informado não existe, por favor informe um válido: ");
+            indEstoqueRecebe = teclado.nextInt() - 1;
+        }
+
+        this.getListaDeEstoques().get(indEstoquePerde).showItens();
+        System.out.print("Digite o índice do item que você deseja realizar a troca: ");
+        int indItem = teclado.nextInt() - 1;
+
+        while(indItem > this.getListaDeEstoques().get(indEstoquePerde).getListaDeItens().size() - 1 || indItem < 0){
+            System.out.print("O índice do item informado não existe, por favor digite um válido: ");
+            indItem = teclado.nextInt() - 1;
+        }
+
+        Item itemTemp = this.getListaDeEstoques().get(indEstoquePerde).getListaDeItens().get(indItem);
+        this.getListaDeEstoques().get(indEstoquePerde).setQuantidadeDeItens(this.getListaDeEstoques().get(indEstoquePerde).getQuantidadeDeItens() - 1);
+        this.getListaDeEstoques().get(indEstoquePerde).getListaDeItens().remove(indItem);
+        this.getListaDeEstoques().get(indEstoqueRecebe).getListaDeItens().add(itemTemp);
+        this.getListaDeEstoques().get(indEstoqueRecebe).setQuantidadeDeItens(this.getListaDeEstoques().get(indEstoquePerde).getQuantidadeDeItens() + 1);
+
+        System.out.printf("O item %s do estoque %s foi trocado com sucesso para o estoque %s.\n\n", itemTemp.getIdentificador(), this.getListaDeEstoques().get(indEstoquePerde).getNomeDoEstoque(), this.getListaDeEstoques().get(indEstoqueRecebe).getNomeDoEstoque());
+
     }
 }

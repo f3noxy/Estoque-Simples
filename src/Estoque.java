@@ -11,11 +11,11 @@ public class Estoque {
         this.nomeDoEstoque = nomeDoEstoque;
     }
 
-    public void setQuantidadeDeItens(int qtdItens){
+    public void setQuantidadeDeItens(int qtdItens) {
         this.quantidadeDeItens = qtdItens;
     }
 
-    public void setListaDeItens(ArrayList<Item> lista){
+    public void setListaDeItens(ArrayList<Item> lista) {
         this.listaDeItens = lista;
     }
 
@@ -23,22 +23,22 @@ public class Estoque {
         return nomeDoEstoque;
     }
 
-    public int getQuantidadeDeItens(){
+    public int getQuantidadeDeItens() {
         return quantidadeDeItens;
     }
 
-    public ArrayList<Item> getListaDeItens(){
+    public ArrayList<Item> getListaDeItens() {
         return listaDeItens;
     }
 
-    public void updateItem(){
+    public void updateItem() {
 
         Scanner teclado = new Scanner(System.in);
 
         System.out.print("Digite o número do item que você deseja alterar: ");
         int itemAlterar = teclado.nextInt();
 
-        while(itemAlterar > this.listaDeItens.size() || itemAlterar < 0){
+        while (itemAlterar > this.listaDeItens.size() || itemAlterar < 0) {
             System.out.print("Por favor digite um item válido a ser alterado: ");
             itemAlterar = teclado.nextInt();
         }
@@ -48,30 +48,28 @@ public class Estoque {
         System.out.print("Digite quais atributos você deseja alterar (identificador e/ou quantidade): ");
         String atributosAlterar = teclado.nextLine();
 
-        while(atributosAlterar.isEmpty() || !(atributosAlterar.toLowerCase().contains("identificador")) && !(atributosAlterar.toLowerCase().contains("quantidade"))){
+        while (atributosAlterar.isEmpty() || !(atributosAlterar.toLowerCase().contains("identificador")) && !(atributosAlterar.toLowerCase().contains("quantidade"))) {
             System.out.print("Por favor digite pelo menos um atributo válido a ser alterado: ");
             atributosAlterar = teclado.nextLine();
         }
 
         Item itemAtualizado = new Item();
 
-        if(atributosAlterar.toLowerCase().contains("identificador")){
+        if (atributosAlterar.toLowerCase().contains("identificador")) {
             System.out.print("Digite o novo identificador: ");
             String novoIdentificador = teclado.nextLine();
             itemAtualizado.setIdentificador(novoIdentificador);
             System.out.print("O identificador do item foi alterado com sucesso.\n\n");
-        }
-        else{
+        } else {
             itemAtualizado.setIdentificador(this.listaDeItens.get(itemAlterar).getIdentificador());
         }
 
-        if(atributosAlterar.toLowerCase().contains("quantidade")){
+        if (atributosAlterar.toLowerCase().contains("quantidade")) {
             System.out.print("Digite a nova quantidade de itens: ");
             int novaQuantidade = teclado.nextInt();
             itemAtualizado.setQuantidade(novaQuantidade);
             System.out.print("A quantidade de itens foi alterada com sucesso.\n\n");
-        }
-        else{
+        } else {
             itemAtualizado.setQuantidade(this.listaDeItens.get(itemAlterar).getQuantidade());
         }
 
@@ -79,14 +77,14 @@ public class Estoque {
 
     }
 
-    public void removeItem(){
+    public void removeItem() {
 
         Scanner teclado = new Scanner(System.in);
 
         System.out.print("Digite o indíce do item que você deseja remover: ");
         int itemRemover = teclado.nextInt();
 
-        while(itemRemover > this.listaDeItens.size() || itemRemover < 0){
+        while (itemRemover > this.listaDeItens.size() || itemRemover < 0) {
             System.out.print("Por favor digite um item válido a ser alterado: ");
             itemRemover = teclado.nextInt();
         }
@@ -109,25 +107,33 @@ public class Estoque {
         }
 
     }
-
-    public void eraseEstoque(){
+    public void eraseEstoque() {
 
         Scanner teclado = new Scanner(System.in);
 
         System.out.print("\nVocê tem certeza que deseja DELETAR todos os itens existentes?\nDigite SIM para confirmar a ação: ");
         String avaliarConfirmacao = teclado.nextLine();
 
-        if(avaliarConfirmacao.equalsIgnoreCase("sim")){
+        if (avaliarConfirmacao.equalsIgnoreCase("sim")) {
 
             ArrayList<Item> novaListaItens = new ArrayList<>();
             setListaDeItens(novaListaItens);
             System.out.printf("Os itens no estoque %s foram apagados.\n\n", getNomeDoEstoque());
 
-        }
-        else{
+        } else {
 
             System.out.print("\nVocê não digitou o código correto para a confirmação, então os itens não foram deletados.\n\n");
 
+        }
+
+    }
+
+    public void showItens() {
+
+        System.out.printf("\nItens criados no estoque %s:\n\n", this.getNomeDoEstoque());
+
+        for (int i = 0; i < this.listaDeItens.size(); i++) {
+            System.out.printf("%d - %s \n", i + 1, this.listaDeItens.get(i).getIdentificador());
         }
 
     }

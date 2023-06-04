@@ -17,6 +17,7 @@ public class Main {
 
                 estoques.addEstoque();
                 qtdEstoquesCriados++;
+                estoques.getListaDeEstoques().get(qtdEstoquesCriados).showEstoque();
                 funcoes.menuEstoque(estoques, qtdEstoquesCriados);
 
             }
@@ -92,7 +93,19 @@ public class Main {
                 }
 
             }
-            else if(opcao == 6){ // Deletar todos os estoques criados
+            else if(opcao == 6){ // Mudar um item de um estoque para outro
+                if(estoques.getListaDeEstoques().size() >= 2){
+
+                    estoques.changeItemEstoque();
+
+                }
+                else{
+
+                    System.out.print("Não é possível trocar itens entre estoques, pois ainda não existem estoques o suficiente.\n\n");
+
+                }
+            }
+            else if(opcao == 7){ // Deletar todos os estoques criados
 
                 if(!(estoques.getListaDeEstoques().isEmpty())){
 
