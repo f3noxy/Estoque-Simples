@@ -95,18 +95,26 @@ public class Estoque {
 
     }
 
-    public void showEstoque(){
+    public void showEstoque() {
+
+        Funcoes funcoes = new Funcoes();
 
         System.out.print("\n| - Nome do estoque: " + getNomeDoEstoque() + "\n");
         System.out.print("| - Quantidade de itens: " + getQuantidadeDeItens() + "\n");
-        System.out.print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+        System.out.print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
+        System.out.print("NOME\t\t\t\t\t\t\t\t\t\tQUANTIDADE\t\t\t\t\t\t\t\t\tDATA DE REGISTRO\t\t\t\t┃\n");
+        System.out.print("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n");
         for(int i = 0; i < this.quantidadeDeItens; i++){
-            System.out.printf("Nome do %d item: %s | ", i+1, listaDeItens.get(i).getIdentificador());
-            System.out.printf("Quantidade do %d item: %d | ", i+1, listaDeItens.get(i).getQuantidade());
-            System.out.printf("Data de registro do " + i+1 + " item: " + listaDeItens.get(i).getDataDeRegistro() + "\n\n");
+            System.out.print(this.getListaDeItens().get(i).getIdentificador());
+            funcoes.formatarTabela(this.getListaDeItens().get(i).getIdentificador());
+            System.out.print(this.getListaDeItens().get(i).getQuantidade());
+            funcoes.formatarTabela(Integer.toString(this.listaDeItens.get(i).getQuantidade()));
+            System.out.print(this.getListaDeItens().get(i).getDataDeRegistro());
+            System.out.print("\n");
         }
-
+        System.out.print("\n");
     }
+
     public void eraseEstoque() {
 
         Scanner teclado = new Scanner(System.in);

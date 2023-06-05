@@ -100,4 +100,17 @@ public class Funcoes {
 
     }
 
+    public void formatarTabela(String paraFormatar){
+        for(int j = 5; j <= 50; j += 5){
+            if(paraFormatar.length() <= j){
+                int x = (55 - j)/5;
+                while(x > 0){
+                    System.out.print("\t");
+                    x--;
+                }
+                break;
+            }
+        }
+    }
+
 }
