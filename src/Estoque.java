@@ -10,6 +10,8 @@ public class Estoque {
 
     private ArrayList<ItemTemporario> listaDeItensTemporarios = new ArrayList<>();
 
+    private int tempIndex = 0;
+
     public void setNomeDoEstoque(String nomeDoEstoque) {
         this.nomeDoEstoque = nomeDoEstoque;
     }
@@ -188,8 +190,11 @@ public class Estoque {
         Funcoes funcoes = new Funcoes();
 
         checkItemTemporario();
-        for(int i = 0; i < getListaDeItensTemporarios().size(); i++){
-            getListaDeItens().add(getListaDeItensTemporarios().get(i));
+        if(getListaDeItens().size() < getQuantidadeDeItens()) {
+            for (int x = this.tempIndex; x < getListaDeItensTemporarios().size(); x++) {
+                getListaDeItens().add(getListaDeItensTemporarios().get(x));
+                this.tempIndex++;
+            }
         }
 
         System.out.print("\n| - Nome do estoque: " + getNomeDoEstoque() + "\n");
@@ -233,6 +238,13 @@ public class Estoque {
     public void showItens() {
 
         System.out.printf("\nItens criados no estoque %s:\n\n", this.getNomeDoEstoque());
+
+        if(getListaDeItens().size() < getQuantidadeDeItens()) {
+            for (int x = this.tempIndex; x < getListaDeItensTemporarios().size(); x++) {
+                getListaDeItens().add(getListaDeItensTemporarios().get(x));
+                this.tempIndex++;
+            }
+        }
 
         for (int i = 0; i < this.listaDeItens.size(); i++) {
             System.out.printf("%d - %s \n", i + 1, this.listaDeItens.get(i).getIdentificador());
