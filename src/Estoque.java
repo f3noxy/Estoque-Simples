@@ -10,8 +10,6 @@ public class Estoque {
 
     private ArrayList<ItemTemporario> listaDeItensTemporarios = new ArrayList<>();
 
-    private int tempIndex = 0;
-
     public void setNomeDoEstoque(String nomeDoEstoque) {
         this.nomeDoEstoque = nomeDoEstoque;
     }
@@ -190,11 +188,12 @@ public class Estoque {
         Funcoes funcoes = new Funcoes();
 
         checkItemTemporario();
+        boolean adicionou = false;
         if(getListaDeItens().size() < getQuantidadeDeItens()) {
-            for (int x = this.tempIndex; x < getListaDeItensTemporarios().size(); x++) {
+            for (int x = 0; x < getListaDeItensTemporarios().size(); x++) {
                 getListaDeItens().add(getListaDeItensTemporarios().get(x));
-                this.tempIndex++;
             }
+            adicionou = true;
         }
 
         System.out.print("\n| - Nome do estoque: " + getNomeDoEstoque() + "\n");
@@ -211,6 +210,12 @@ public class Estoque {
             System.out.print("\n");
         }
         System.out.print("\n");
+        int y = (getListaDeItens().size() - getListaDeItensTemporarios().size());
+        if(adicionou) {
+            for (int x = getListaDeItens().size() - 1; x >= y; x--) {
+                getListaDeItens().remove(x);
+            }
+        }
     }
 
     public void eraseEstoque() {
@@ -239,15 +244,23 @@ public class Estoque {
 
         System.out.printf("\nItens criados no estoque %s:\n\n", this.getNomeDoEstoque());
 
+        boolean adicionou = false;
         if(getListaDeItens().size() < getQuantidadeDeItens()) {
-            for (int x = this.tempIndex; x < getListaDeItensTemporarios().size(); x++) {
+            for (int x = 0; x < getListaDeItensTemporarios().size(); x++) {
                 getListaDeItens().add(getListaDeItensTemporarios().get(x));
-                this.tempIndex++;
             }
+            adicionou = true;
         }
 
         for (int i = 0; i < this.listaDeItens.size(); i++) {
             System.out.printf("%d - %s \n", i + 1, this.listaDeItens.get(i).getIdentificador());
+        }
+
+        int y = (getListaDeItens().size() - getListaDeItensTemporarios().size());
+        if(adicionou) {
+            for (int x = getListaDeItens().size() - 1; x >= y; x--) {
+                getListaDeItens().remove(x);
+            }
         }
 
     }
