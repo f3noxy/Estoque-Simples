@@ -24,6 +24,7 @@ public class Main {
             else if(opcao == 2){
 
                 if(!(estoques.getListaDeEstoques().isEmpty())){
+                    estoques.showEstoques();
                     System.out.print("Digite qual estoque você deseja exibir: ");
                     int exibirEstoque = teclado.nextInt() - 1;
 
@@ -134,4 +135,5 @@ public class Main {
         }while(true);
 
     }
+
 }

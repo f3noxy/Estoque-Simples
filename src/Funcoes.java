@@ -45,9 +45,18 @@ public class Funcoes {
             System.out.println("0. Sair do estoque");
             System.out.print("Digite o número correspodente a opção desejada: ");
             opcao = teclado.nextInt();
-            teclado.nextLine();
 
-            if(opcao == 3){
+            if(opcao == 1){
+
+                estoques.getListaDeEstoques().get(estoque).addItem();
+
+            }
+            else if(opcao == 2){
+
+                estoques.getListaDeEstoques().get(estoque).addItemTemporario();
+
+            }
+            else if(opcao == 3){
 
                 if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
 

@@ -1,11 +1,14 @@
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Date;
 
 public class Estoque {
 
     private String nomeDoEstoque;
     private int quantidadeDeItens = 0;
     private ArrayList<Item> listaDeItens = new ArrayList<>();
+
+    private ArrayList<ItemTemporario> listaDeItensTemporarios = new ArrayList<>();
 
     public void setNomeDoEstoque(String nomeDoEstoque) {
         this.nomeDoEstoque = nomeDoEstoque;
@@ -31,6 +34,91 @@ public class Estoque {
         return listaDeItens;
     }
 
+    public ArrayList<ItemTemporario> getListaDeItensTemporarios() {
+        return listaDeItensTemporarios;
+    }
+
+    public void setListaDeItensTemporarios(ArrayList<ItemTemporario> listaDeItensTemporarios) {
+        this.listaDeItensTemporarios = listaDeItensTemporarios;
+    }
+
+    public void addItem() {
+
+        Scanner teclado = new Scanner(System.in);
+        Item novoItem = new Item();
+
+        System.out.print("Digite o nome do novo item: ");
+        novoItem.setIdentificador(teclado.nextLine());
+
+        System.out.print("Digite a quantidade de itens do novo item: ");
+        int quantidadeNovoItem = teclado.nextInt();
+
+        while(quantidadeNovoItem < 0){
+            System.out.print("Digite uma quantidade válida para o novo item: ");
+            quantidadeNovoItem = teclado.nextInt();
+        }
+        novoItem.setQuantidade(quantidadeNovoItem);
+
+        novoItem.setDataDeRegistro(new Date());
+
+        this.listaDeItens.add(novoItem);
+        this.quantidadeDeItens++;
+
+        System.out.printf("O item %s com a quantidade %d foi criado na data %s com sucesso.\n\n", novoItem.getIdentificador(), novoItem.getQuantidade(), novoItem.getDataDeRegistro().toString());
+
+    }
+
+    public void addItemTemporario(){
+
+        Scanner teclado = new Scanner(System.in);
+        ItemTemporario novoItemTemporario = new ItemTemporario();
+
+        System.out.print("Digite o nome do novo item temporário: ");
+        novoItemTemporario.setIdentificador(teclado.nextLine());
+
+        System.out.print("Digite a quantidade de itens do novo item: ");
+        int quantidadeNovoItem = teclado.nextInt();
+
+        while(quantidadeNovoItem < 0){
+            System.out.print("Digite uma quantidade válida para o novo item: ");
+            quantidadeNovoItem = teclado.nextInt();
+        }
+        novoItemTemporario.setQuantidade(quantidadeNovoItem);
+
+        novoItemTemporario.setDataDeRegistro(new Date());
+
+        System.out.print("Digite em quantos dias o item temporário será apagado: ");
+        long diasParaApagar = teclado.nextLong();
+
+        novoItemTemporario.getDataDeExpiracao().setTime(novoItemTemporario.getDataDeRegistro().getTime() + (diasParaApagar*86400000));
+
+        this.listaDeItensTemporarios.add(novoItemTemporario);
+        this.quantidadeDeItens++;
+
+        System.out.printf("O item %s com a quantidade %d foi criado na data %s com sucesso.\n", novoItemTemporario.getIdentificador(), novoItemTemporario.getQuantidade(), novoItemTemporario.getDataDeRegistro().toString());
+        System.out.printf("O item será apagado automaticamente na data de %s.\n\n", novoItemTemporario.getDataDeExpiracao().toString());
+
+    }
+
+    public void checkItemTemporario() {
+
+        int quantidadeItensTemporarioApagados = 0;
+
+        if(!(this.listaDeItensTemporarios.isEmpty())){
+            for(int i = 0; i < this.listaDeItensTemporarios.size(); i++){
+                if(this.listaDeItensTemporarios.get(i).getDataDeExpiracao().before(new Date())){
+                    getListaDeItensTemporarios().remove(i);
+                    quantidadeItensTemporarioApagados++;
+                    this.quantidadeDeItens--;
+                }
+            }
+        }
+
+        if(quantidadeItensTemporarioApagados > 0){
+            System.out.printf("Foram apagados %d itens temporários desde a ultima vez que você abriu esse estoque.\n\n", quantidadeItensTemporarioApagados);
+        }
+
+    }
     public void updateItem() {
 
         Scanner teclado = new Scanner(System.in);
@@ -90,14 +178,19 @@ public class Estoque {
         }
 
         System.out.printf("O item %s foi removido com sucesso.\n\n", this.listaDeItens.get(itemRemover - 1).getIdentificador());
+        this.quantidadeDeItens--;
         this.listaDeItens.remove(itemRemover - 1);
-
 
     }
 
     public void showEstoque() {
 
         Funcoes funcoes = new Funcoes();
+
+        checkItemTemporario();
+        for(int i = 0; i < getListaDeItensTemporarios().size(); i++){
+            getListaDeItens().add(getListaDeItensTemporarios().get(i));
+        }
 
         System.out.print("\n| - Nome do estoque: " + getNomeDoEstoque() + "\n");
         System.out.print("| - Quantidade de itens: " + getQuantidadeDeItens() + "\n");
@@ -126,6 +219,7 @@ public class Estoque {
 
             ArrayList<Item> novaListaItens = new ArrayList<>();
             setListaDeItens(novaListaItens);
+            setQuantidadeDeItens(0);
             System.out.printf("Os itens no estoque %s foram apagados.\n\n", getNomeDoEstoque());
 
         } else {
