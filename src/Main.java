@@ -17,23 +17,24 @@ public class Main {
 
                 estoques.addEstoque();
                 qtdEstoquesCriados++;
+                estoques.getListaDeEstoques().get(qtdEstoquesCriados).showEstoque();
                 funcoes.menuEstoque(estoques, qtdEstoquesCriados);
 
             }
             else if(opcao == 2){
 
                 if(!(estoques.getListaDeEstoques().isEmpty())){
+                    estoques.showEstoques();
                     System.out.print("Digite qual estoque você deseja exibir: ");
                     int exibirEstoque = teclado.nextInt() - 1;
 
-                    while (exibirEstoque < 0 || exibirEstoque > estoques.getListaDeEstoques().size()) {
+                    while (exibirEstoque < 0 || exibirEstoque > estoques.getListaDeEstoques().size() - 1) {
                         System.out.print("Por favor digite um estoque válido para ser exibido: ");
                         exibirEstoque = teclado.nextInt() - 1;
                     }
 
                     estoques.getListaDeEstoques().get(exibirEstoque).showEstoque();
                     funcoes.menuEstoque(estoques, exibirEstoque);
-
 
                 }
                 else{
@@ -48,10 +49,12 @@ public class Main {
                 if(!(estoques.getListaDeEstoques().isEmpty())){
                     System.out.print("Digite qual estoque você deseja alterar: ");
                     int alterarEstoque = teclado.nextInt() - 1;
+                    System.out.print("\n");
 
-                    while (alterarEstoque < 0 || alterarEstoque > estoques.getListaDeEstoques().size()) {
+                    while (alterarEstoque < 0 || alterarEstoque > estoques.getListaDeEstoques().size() - 1) {
                         System.out.print("Por favor digite um estoque válido para ser alterado: ");
                         alterarEstoque = teclado.nextInt() - 1;
+                        System.out.print("\n");
                     }
 
                     funcoes.menuEstoque(estoques, alterarEstoque);
@@ -64,21 +67,59 @@ public class Main {
                 }
 
             }
-//            else if(opcao == 4){ // Deletar determinado estoque
-//
-//
-//
-//            }
-//            else if(opcao == 5){ // Listar os estoques criados
-//
-//
-//
-//            }
-//            else if(opcao == 6){ // Deletar todos os estoques criados
-//
-//
-//
-//            }
+            else if(opcao == 4){ // Deletar determinado estoque
+
+                if(!(estoques.getListaDeEstoques().isEmpty())){
+
+                    estoques.removeEstoque();
+
+                }
+                else{
+
+                    System.out.print("Não é possível deletar nenhum estoque, pois ainda não existe nenhum.\n\n");
+
+                }
+            }
+            else if(opcao == 5){ // Listar os estoques criados
+
+                if(!(estoques.getListaDeEstoques().isEmpty())){
+
+                    estoques.showEstoques();
+
+                }
+                else{
+
+                    System.out.print("Não é possível listar nenhum estoque, pois ainda não existe nenhum.\n\n");
+
+                }
+
+            }
+            else if(opcao == 6){ // Mudar um item de um estoque para outro
+                if(estoques.getListaDeEstoques().size() >= 2){
+
+                    estoques.changeItemEstoque();
+
+                }
+                else{
+
+                    System.out.print("Não é possível trocar itens entre estoques, pois ainda não existem estoques o suficiente.\n\n");
+
+                }
+            }
+            else if(opcao == 7){ // Deletar todos os estoques criados
+
+                if(!(estoques.getListaDeEstoques().isEmpty())){
+
+                    estoques.eraseEstoques();
+
+                }
+                else{
+
+                    System.out.print("Não é possível apagar todos os estoques, pois ainda não existe nenhum.\n\n");
+
+                }
+
+            }
             else if(opcao == 0){ // Sair do programa
 
                 break;
@@ -89,8 +130,10 @@ public class Main {
                 System.out.print("Digite uma opção válida.\n");
 
             }
+            System.out.print("\n");
 
         }while(true);
 
     }
+
 }
