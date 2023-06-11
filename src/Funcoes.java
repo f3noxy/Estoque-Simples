@@ -58,7 +58,7 @@ public class Funcoes {
             }
             else if(opcao == 3){
 
-                if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
+                if(estoques.getListaDeEstoques().get(estoque).getQuantidadeDeItens() != 0){
 
                     estoques.getListaDeEstoques().get(estoque).updateItem();
 
@@ -71,7 +71,7 @@ public class Funcoes {
 
             }
             else if(opcao == 4){
-                if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
+                if(estoques.getListaDeEstoques().get(estoque).getQuantidadeDeItens() != 0){
 
                     estoques.getListaDeEstoques().get(estoque).removeItem();
 
@@ -83,7 +83,7 @@ public class Funcoes {
                 }
             }
             else if(opcao == 5){
-                if(!(estoques.getListaDeEstoques().get(estoque).getListaDeItens().isEmpty())){
+                if(estoques.getListaDeEstoques().get(estoque).getQuantidadeDeItens() != 0){
 
                     estoques.getListaDeEstoques().get(estoque).eraseEstoque();
 

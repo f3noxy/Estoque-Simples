@@ -121,6 +121,15 @@ public class Estoque {
     }
     public void updateItem() {
 
+        int qtdItensOriginal = getListaDeItens().size();
+        boolean adicionou = false;
+        if(getListaDeItens().size() < getQuantidadeDeItens()) {
+            for (int x = 0; x < getListaDeItensTemporarios().size(); x++) {
+                getListaDeItens().add(getListaDeItensTemporarios().get(x));
+            }
+            adicionou = true;
+        }
+
         Scanner teclado = new Scanner(System.in);
 
         System.out.print("Digite o número do item que você deseja alterar: ");
@@ -141,7 +150,8 @@ public class Estoque {
             atributosAlterar = teclado.nextLine();
         }
 
-        Item itemAtualizado = new Item();
+            Item itemAtualizado = new Item();
+
 
         if (atributosAlterar.toLowerCase().contains("identificador")) {
             System.out.print("Digite o novo identificador: ");
@@ -149,7 +159,7 @@ public class Estoque {
             itemAtualizado.setIdentificador(novoIdentificador);
             System.out.print("O identificador do item foi alterado com sucesso.\n\n");
         } else {
-            itemAtualizado.setIdentificador(this.listaDeItens.get(itemAlterar).getIdentificador());
+            itemAtualizado.setIdentificador(this.listaDeItens.get(itemAlterar - 1).getIdentificador());
         }
 
         if (atributosAlterar.toLowerCase().contains("quantidade")) {
@@ -158,10 +168,24 @@ public class Estoque {
             itemAtualizado.setQuantidade(novaQuantidade);
             System.out.print("A quantidade de itens foi alterada com sucesso.\n\n");
         } else {
-            itemAtualizado.setQuantidade(this.listaDeItens.get(itemAlterar).getQuantidade());
+            itemAtualizado.setQuantidade(this.listaDeItens.get(itemAlterar - 1).getQuantidade());
         }
 
-        this.listaDeItens.set(itemAlterar, itemAtualizado);
+        this.listaDeItens.set(itemAlterar - 1, itemAtualizado);
+        if("class ItemTemporario".equals(getListaDeItensTemporarios().get((-1 - qtdItensOriginal) + itemAlterar).getClass().toString())){
+            ItemTemporario itemTemporarioAtualizado = new ItemTemporario();
+            itemTemporarioAtualizado.setIdentificador(itemAtualizado.getIdentificador());
+            itemTemporarioAtualizado.setDataDeExpiracao(getListaDeItensTemporarios().get((-1 - qtdItensOriginal) + itemAlterar).getDataDeExpiracao());
+            itemTemporarioAtualizado.setQuantidade(itemAtualizado.getQuantidade());
+            getListaDeItensTemporarios().set((-1 - qtdItensOriginal) + itemAlterar, itemTemporarioAtualizado);
+        }
+
+        int y = (getListaDeItens().size() - getListaDeItensTemporarios().size());
+        if(adicionou) {
+            for (int x = getListaDeItens().size() - 1; x >= y; x--) {
+                getListaDeItens().remove(x);
+            }
+        }
 
     }
 
@@ -172,14 +196,21 @@ public class Estoque {
         System.out.print("Digite o indíce do item que você deseja remover: ");
         int itemRemover = teclado.nextInt();
 
-        while (itemRemover > this.listaDeItens.size() || itemRemover < 0) {
+        while (itemRemover > getQuantidadeDeItens() || itemRemover < 0) {
             System.out.print("Por favor digite um item válido a ser alterado: ");
             itemRemover = teclado.nextInt();
         }
 
-        System.out.printf("O item %s foi removido com sucesso.\n\n", this.listaDeItens.get(itemRemover - 1).getIdentificador());
+        if("class ItemTemporario".equals(getListaDeItensTemporarios().get((-1 - getListaDeItens().size()) + itemRemover).getClass().toString())){
+            System.out.printf("O item %s foi removido com sucesso.\n\n", this.listaDeItens.get((- 1 - getListaDeItens().size()) + itemRemover).getIdentificador());
+            this.listaDeItensTemporarios.remove((- 1 - getListaDeItens().size()) + itemRemover);
+        }
+        else{
+            System.out.printf("O item %s foi removido com sucesso.\n\n", this.listaDeItens.get(itemRemover - 1).getIdentificador());
+            this.listaDeItens.remove(itemRemover - 1);
+        }
         this.quantidadeDeItens--;
-        this.listaDeItens.remove(itemRemover - 1);
+
 
     }
 
@@ -229,6 +260,7 @@ public class Estoque {
 
             ArrayList<Item> novaListaItens = new ArrayList<>();
             setListaDeItens(novaListaItens);
+            listaDeItensTemporarios.clear();
             setQuantidadeDeItens(0);
             System.out.printf("Os itens no estoque %s foram apagados.\n\n", getNomeDoEstoque());
 
